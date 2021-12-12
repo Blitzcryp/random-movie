@@ -61,7 +61,6 @@ export default function Movie(){
                     { dummyData.description }
                 </Card.Text>
                 <Button variant="primary" onClick={() => {
-                    console.log("Clicked");
                     setDummyData(movies[Math.floor(Math.random() * movies.length)])
                 }}>Randomize</Button>
             </Card.Body>
