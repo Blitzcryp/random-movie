@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
-
+import { Card } from "react-bootstrap";
+import { Heart, ArrowClockwise, HeartFill } from "react-bootstrap-icons";
+import { motion } from "framer-motion";
 
 const movies = [
     {
@@ -46,11 +47,27 @@ const cardStyles = {
     height: "20rem",
     top: "50%",
     left: "50%",
-    transform: "translateX(-50%) translateY(50%)",
+    transform: "translateX(-50%) translateY(50%)"
 };
+
+const buttonStyle = {
+    width: '40%',
+    backgroundColor: "white",
+    border: "1px solid black",
+    borderRadius: "4px",
+    color: "black",
+    margin: "10px",
+    height: "8rem"
+}
+
+let icon = {
+    width: "80%",
+    height: "80%"
+}
 
 export default function Movie(){
     const [ dummyData, setDummyData ] = useState(movies[0]);
+    const [ heartClicked, setHeartClicked ] = useState(false);
 
     return (
         <Card style={cardStyles}>
@@ -60,9 +77,25 @@ export default function Movie(){
                 <Card.Text>
                     { dummyData.description }
                 </Card.Text>
-                <Button variant="primary" onClick={() => {
-                    setDummyData(movies[Math.floor(Math.random() * movies.length)])
-                }}>Randomize</Button>
+                <motion.button
+                    style={buttonStyle}
+                    whileTap={{ scale: 0.96, backgroundColor: 'black', color: 'white'}}
+                    onClick={() => setHeartClicked(!heartClicked)}
+                >
+                    {
+                        heartClicked? <HeartFill style={ icon }/> : <Heart style={ icon }/>
+                    }
+                </motion.button>
+                <motion.button
+                    style={buttonStyle}
+                    variant="primary"
+                    whileTap={{ scale: 0.96, backgroundColor: 'black', color: 'white'}}
+                    onClick={() => {
+                        setDummyData(movies[Math.floor(Math.random() * movies.length)])
+                        setHeartClicked(false)
+                }}>
+                    <ArrowClockwise style={icon}/>
+                </motion.button>
             </Card.Body>
         </Card>
     )
